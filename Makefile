@@ -1,4 +1,4 @@
-DOCKER_COMPOSE = docker-compose
+DOCKER_COMPOSE = docker compose
 ALEMBIC = $(DOCKER_COMPOSE) run --rm app alembic
 
 .PHONY: build
@@ -19,3 +19,11 @@ start:
 .PHONY: stop
 stop:
 	$(DOCKER_COMPOSE) down
+
+.PHONY: tests
+tests:
+	$(DOCKER_COMPOSE) exec app bash -c "poetry run pytest -p no:warnings --cov=api --cov-report term-missing"
+
+.PHONY: migrate
+migrate:
+	$(ALEMBIC) upgrade head
