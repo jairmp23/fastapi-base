@@ -4,12 +4,12 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
-from api.main import Base
+from api.models.base import BaseModel
 
 
 config = context.config
 fileConfig(config.config_file_name)
-target_metadata = Base.metadata
+target_metadata = BaseModel.metadata
 
 
 def get_url():

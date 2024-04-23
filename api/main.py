@@ -15,8 +15,3 @@ app = FastAPI()
 
 ## REGISTER ROUTES
 routes_config(app)
-
-## DATABASE CONFIG
-engine = create_engine(os.getenv("DATABASE_URL"))
-Base = declarative_base()
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
