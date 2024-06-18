@@ -2,28 +2,33 @@ DOCKER_COMPOSE = docker compose
 ALEMBIC = $(DOCKER_COMPOSE) run --rm app alembic
 
 .PHONY: build
-build:
-	$(DOCKER_COMPOSE) up --build -d
+build: ## 🛠️ Build and start the containers
+	@$(DOCKER_COMPOSE) up --build -d
 
 .PHONY: clean
-clean:
-	$(DOCKER_COMPOSE) down -v
-
-.PHONY: restart
-restart: clean start
+clean: ## 🧹 Stop and remove the containers and volumes
+	@$(DOCKER_COMPOSE) down -v
 
 .PHONY: start
-start:
-	$(DOCKER_COMPOSE) up -d
+start: ## ▶️ Start the containers
+	@$(DOCKER_COMPOSE) up -d
 
 .PHONY: stop
-stop:
-	$(DOCKER_COMPOSE) down
+stop: ## ⏹️ Stop the containers
+	@$(DOCKER_COMPOSE) down
 
 .PHONY: tests
-tests:
-	$(DOCKER_COMPOSE) exec app bash -c "poetry run pytest -p no:warnings --cov=api --cov-report term-missing"
+tests: ## 🧪 Run the tests
+	@$(DOCKER_COMPOSE) exec -T app bash -c "poetry run pytest -p no:warnings --cov=api --cov-report term-missing"
 
 .PHONY: migrate
-migrate:
-	$(ALEMBIC) upgrade head
+migrate: ## 🔄 Apply database migrations
+	@$(ALEMBIC) upgrade head
+
+.PHONY: lint
+lint: ## 📋 Run lint checks
+	@$(DOCKER_COMPOSE) exec -T app bash -c "poetry run ruff check"
+
+.PHONY: format
+format: ## 🖋️ Format the code
+	@$(DOCKER_COMPOSE) exec -T app bash -c "poetry run ruff format"

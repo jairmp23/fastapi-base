@@ -2,4 +2,4 @@ from .routers import health
 
 
 def routes_config(app):
-    app.include_router(health.router, prefix="/health")
+    app.include_router(health.router, prefix='/health')
