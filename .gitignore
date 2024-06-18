@@ -7,7 +7,6 @@ __pycache__/
 /.venv/
 /.venv/
 .poetry/
-poetry.lock
 
 # Docker
 /.mypy_cache/
@@ -20,3 +19,9 @@ poetry.lock
 .env.test
 *.db
 *.db-journal
+
+# Ruff
+.ruff_cache/
+
+# Coverage
+.coverage

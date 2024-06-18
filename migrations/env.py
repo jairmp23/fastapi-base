@@ -5,6 +5,7 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 
 from api.models.base import BaseModel
+from api.config import settings
 
 
 config = context.config
@@ -13,7 +14,7 @@ target_metadata = BaseModel.metadata
 
 
 def get_url():
-    return os.getenv("DATABASE_URL")
+    return settings.postgres_url
 
 
 def run_migrations_offline():
